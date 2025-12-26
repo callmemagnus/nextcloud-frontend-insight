@@ -1,0 +1,74 @@
+/* .tailwind-scope {
+    @import './app.css' layer(base);
+}*/
+/* 
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+
+@layer utilities {
+    .tailwind-scope {
+        @tailwind utilities;
+        @import 'daisyui/chunks.css'
+    }
+} */
+/* 
+@import "tailwindcss/theme.css" layer(test);
+
+@layer test {
+    .tailwind-scope {
+        @import "tailwindcss/preflight.css";
+        @tailwind utilities;
+    }
+}
+ */
+
+/*@config "../../tailwind.config.js";*/
+
+/*@scope (.tailwind-scope) {*/
+/*    !* @import 'tailwindcss'; *!*/
+/*    @layer theme, base, components, utilities;*/
+/*    @import "tailwindcss/theme.css" layer(theme);*/
+/*    @import "tailwindcss/preflight.css" layer(base);*/
+/*    @import "tailwindcss/utilities.css" layer(utilities);*/
+/*}*/
+
+/*@import '@skeletonlabs/skeleton';*/
+/*@import '@skeletonlabs/skeleton-svelte';*/
+/*@import '@skeletonlabs/skeleton/themes/cerberus';*/
+/*!* @import 'daisyui/daisyui.css'; *!*/
+
+p {
+    padding-bottom: 20px;
+}
+
+h1 {
+    font-size: 2rem;
+    padding-bottom: 20px;
+}
+
+/*h2 {*/
+/*    font-size: var(--);*/
+/*}*/
+
+.line {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.space-below {
+    padding-bottom: 20px;
+}
+
+.p-left {
+    padding-left: 20px;
+}
+
+.flex-center {
+    align-items: center;
+}

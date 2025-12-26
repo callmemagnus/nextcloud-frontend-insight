@@ -1,0 +1,3 @@
+#!/bin/sh
+# Build the project before pushing
+npm run build

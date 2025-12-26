@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<info>
+	<id>frontendinsight</id>
+	<name>Frontend Insight</name>
+	<summary>Know what happens in your client's browser</summary>
+	<description><![CDATA[🔍 **Capture and analyze JavaScript errors from your users' browsers in real-time!**
+
+FrontEndInsight gives you **visibility into frontend issues that would otherwise go unnoticed**.
+
+✨ **Key Features:**
+• 🐛 Automatic tracking of client-side errors and unhandled promise rejections
+• 📊 Browse events with advanced filtering and sorting
+• ⏰ Configurable data retention policies with automatic cleanup
+• 👥 Restrict reported events browsing to specific user groups
+• 🛡️ Built-in rate limiting to prevent abuse
+• 🚀 Modern UI built with Svelte 5
+
+**Identify and fix frontend bugs before they impact your users' experience!**]]></description>
+
+	<version>1.0.0</version>
+	<licence>agpl</licence>
+	<author mail="magnus@magooweb.com" homepage="http://magnus.anderssen.ch">Magnus Anderssen</author>
+	<namespace>FrontEndInsight</namespace>
+	<category>tools</category>
+
+	<website>https://github.com/callmemagnus/nextcloud-frontend-insight/</website>
+	<bugs>https://github.com/callmemagnus/nextcloud-frontend-insight/issues</bugs>
+	<repository type="git">https://github.com/callmemagnus/nextcloud-frontend-insight.git</repository>
+
+	<dependencies>
+		<nextcloud min-version="30" max-version="32" />
+	</dependencies>
+
+	<settings>
+		<admin>OCA\FrontEndInsight\Settings\FrontendInsightAdminSettings</admin>
+		<admin-section>OCA\FrontEndInsight\Sections\FrontendInsightAdminSection</admin-section>
+	</settings>
+
+	<background-jobs>
+		<job>OCA\FrontEndInsight\BackgroundJob\PurgeOldEvents</job>
+	</background-jobs>
+
+</info>

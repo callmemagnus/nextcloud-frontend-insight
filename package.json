@@ -1,0 +1,43 @@
+{
+  "name": "frontendinsight",
+  "version": "1.0.0",
+  "description": "Nextcloud app to capture and analyze client-side JavaScript errors",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "preview:bo": "vite preview",
+    "build": "run-p build:*",
+    "build:event-browser": "vite build",
+    "build:client": "esbuild src/client/index.ts --bundle --outfile=js/client.js",
+    "extract-translations": "node bin/extract_translations.cjs",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@svar-ui/svelte-core": "2.4.0",
+    "@svar-ui/svelte-grid": "2.4.0",
+    "esbuild": "0.27.2",
+    "glob": "13.0.0",
+    "husky": "9.1.7",
+    "npm-run-all": "4.1.5",
+    "postcss": "8.5.6",
+    "svelte": "5.45.10",
+    "svelte-check": "4.3.5",
+    "typescript": "5.9.3",
+    "vite": "7.2.7",
+    "vite-plugin-css-injected-by-js": "3.5.2",
+    "vite-plugin-html": "3.2.2"
+  },
+  "dependencies": {
+    "@nextcloud/axios": "2.5.2",
+    "@nextcloud/initial-state": "3.0.0",
+    "@nextcloud/l10n": "3.4.1",
+    "@nextcloud/router": "3.1.0",
+    "@nextcloud/typings": "1.10.0",
+    "@sveltejs/vite-plugin-svelte": "6.2.1"
+  }
+}

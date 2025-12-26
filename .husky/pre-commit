@@ -1,0 +1,14 @@
+#!/bin/sh
+# Extract translations from Svelte files before committing
+npm run extract-translations
+git add src/fakeLabels.ts
+
+# Run type checking (allow to continue even if there are warnings)
+npm run check || echo "⚠️  Type checking found issues, but allowing commit to proceed"
+
+# Run PHP linting if composer is available
+if command -v composer > /dev/null 2>&1; then
+  composer run lint
+else
+  echo "ℹ️  Composer not found, skipping PHP linting"
+fi

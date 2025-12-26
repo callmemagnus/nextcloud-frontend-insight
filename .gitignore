@@ -1,0 +1,9 @@
+.php-cs-fixer.cache
+build
+l10n
+vendor
+.idea
+js/*.js
+css/*.css
+node_modules
+.claude

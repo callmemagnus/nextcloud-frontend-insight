@@ -1,5 +1,7 @@
 #!/bin/sh
 
+app_id=frontend_insight
+
 if test "$1" = ""; then
 	echo "$0 start | stop"
 	exit 1
@@ -55,7 +57,7 @@ start() {
 			--name nextcloud$i \
 			-p 80$i:80 \
 			-v /tmp/nextcloud/$latest:/var/www/html \
-			-v $pwd/..:/var/www/html/apps-extra/frontendinsight \
+			-v $pwd/..:/var/www/html/apps-extra/$app_id \
 			-e SERVER_BRANCH=$latest \
 			$image83
 	done
@@ -69,7 +71,7 @@ start() {
 		echo Enabling on $i
 		while true; do
 			echo "Testing $i..."
-			result=$(docker exec -u 33 nextcloud$i php occ app:enable frontendinsight)
+			result=$(docker exec -u 33 nextcloud$i php occ app:enable $app_id)
 			#echo "$i: $result"
 			if [[ "$result" =~ "enabled" ]]; then
 				count=$(docker exec -u 33 nextcloud$i php occ config:system:get trusted_domains | wc -l)

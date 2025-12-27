@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\FrontEndInsight\Db;
+namespace OCA\FrontendInsight\Db;
 
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;

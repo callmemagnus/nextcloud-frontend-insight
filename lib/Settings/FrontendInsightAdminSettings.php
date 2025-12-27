@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\FrontEndInsight\Settings;
+namespace OCA\FrontendInsight\Settings;
 
-use OCA\FrontEndInsight\AppInfo\Application;
+use OCA\FrontendInsight\AppInfo\Application;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\IAppConfig;
 use OCP\IGroupManager;

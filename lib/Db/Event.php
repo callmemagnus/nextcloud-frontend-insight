@@ -1,6 +1,6 @@
 <?php
 
-namespace OCA\FrontEndInsight\Db;
+namespace OCA\FrontendInsight\Db;
 
 use JsonSerializable;
 use OCP\AppFramework\Db\Entity;

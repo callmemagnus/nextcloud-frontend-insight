@@ -8,6 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import axios from '@nextcloud/axios';
     import DateDisplay from './DateDisplay.svelte';
     import { translatePlural, translate } from '@nextcloud/l10n';
+    import {APP_ID} from "../constants.js";
 
     type Stats = { firstTimestamp: number | null, latestTimestamp: number | null, byType: Record<string, number> };
 
@@ -17,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     async function loadStats() {
         try {
-            const su = generateUrl('/apps/frontendinsight/api/1.0/stats');
+            const su = generateUrl(`/apps/${APP_ID}/api/1.0/stats`);
             const { data } = await (axios.get(su) as Promise<{ data: Stats }>);
             firstTimestamp = data.firstTimestamp;
             latestTs = data.latestTimestamp;
@@ -42,14 +43,14 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <div class="indicators">
     {#if firstTimestamp}
         <div class="indicator">
-            <strong>{translate("frontendinsight", "First event")}:</strong>
+            <strong>{translate(APP_ID, "First event")}:</strong>
             <DateDisplay timestamp={firstTimestamp} />
         </div>
     {/if}
 
     {#if latestTs}
         <div class="indicator">
-            <strong>{translate("frontendinsight", "Latest event")}:</strong>
+            <strong>{translate(APP_ID, "Latest event")}:</strong>
             <DateDisplay timestamp={latestTs} forceFormat="ago" />
         </div>
     {/if}
@@ -58,7 +59,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         {#each entries as [type, count]}
             <div class="indicator">
                 <strong>{type}:</strong>
-                <span>{translatePlural("frontendinsight", "%n event", "%n events", count, { n: count })}</span>
+                <span>{translatePlural(APP_ID, "%n event", "%n events", count, { n: count })}</span>
             </div>
         {/each}
     {/if}

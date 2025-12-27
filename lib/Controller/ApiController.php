@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\FrontEndInsight\Controller;
+namespace OCA\FrontendInsight\Controller;
 
-use OCA\FrontEndInsight\Db\EventMapper;
+use OCA\FrontendInsight\Db\EventMapper;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Attribute\CORS;
 use OCP\DB\Exception;

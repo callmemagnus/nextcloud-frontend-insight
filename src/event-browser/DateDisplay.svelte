@@ -7,6 +7,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { dateDisplaySettings } from './stores/dateDisplay';
     import { nextcloudTimezoneId } from './stores/dateDisplay';
     import { translatePlural, translate } from '@nextcloud/l10n';
+    import {APP_ID} from "../constants.js";
 
     const { timestamp, forceFormat } = $props<{ timestamp: number; forceFormat?: import('./stores/dateDisplay').DateFormat }>();
 
@@ -38,27 +39,27 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
         if (absMs < MIN) {
             value = past ? Math.floor(absMs / SEC) : Math.ceil(absMs / SEC);
-            unitStr = translatePlural('frontendinsight', '%n second', '%n seconds', value, { n: value });
+            unitStr = translatePlural(APP_ID, '%n second', '%n seconds', value, { n: value });
         } else if (absMs < HOUR) {
             value = past ? Math.floor(absMs / MIN) : Math.ceil(absMs / MIN);
-            unitStr = translatePlural('frontendinsight', '%n minute', '%n minutes', value, { n: value });
+            unitStr = translatePlural(APP_ID, '%n minute', '%n minutes', value, { n: value });
         } else if (absMs < DAY) {
             value = past ? Math.floor(absMs / HOUR) : Math.ceil(absMs / HOUR);
-            unitStr = translatePlural('frontendinsight', '%n hour', '%n hours', value, { n: value });
+            unitStr = translatePlural(APP_ID, '%n hour', '%n hours', value, { n: value });
         } else if (absMs < MONTH) {
             value = past ? Math.floor(absMs / DAY) : Math.ceil(absMs / DAY);
-            unitStr = translatePlural('frontendinsight', '%n day', '%n days', value, { n: value });
+            unitStr = translatePlural(APP_ID, '%n day', '%n days', value, { n: value });
         } else if (absMs < YEAR) {
             value = past ? Math.floor(absMs / MONTH) : Math.ceil(absMs / MONTH);
-            unitStr = translatePlural('frontendinsight', '%n month', '%n months', value, { n: value });
+            unitStr = translatePlural(APP_ID, '%n month', '%n months', value, { n: value });
         } else {
             value = past ? Math.floor(absMs / YEAR) : Math.ceil(absMs / YEAR);
-            unitStr = translatePlural('frontendinsight', '%n year', '%n years', value, { n: value });
+            unitStr = translatePlural(APP_ID, '%n year', '%n years', value, { n: value });
         }
 
         return past
-            ? translate('frontendinsight', '{time} ago', { time: unitStr })
-            : translate('frontendinsight', 'in {time}', { time: unitStr });
+            ? translate(APP_ID, '{time} ago', { time: unitStr })
+            : translate(APP_ID, 'in {time}', { time: unitStr });
     }
 
     function fmtPartsInZone(ts: number, timeZone?: string | undefined) {

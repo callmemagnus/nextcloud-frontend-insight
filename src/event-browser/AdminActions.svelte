@@ -5,6 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 <script lang="ts">
     import { eventData } from "./stores/eventData";
     import { translate } from "@nextcloud/l10n";
+    import {APP_ID} from "../constants.js";
 
     let totalItems = $state(0);
 
@@ -18,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
 <div class="mwb-buttons">
     <button class="mwb-danger" disabled={totalItems === 0}>
-        {translate("frontendinsight", "Purge all events")}
+        {translate(APP_ID, "Purge all events")}
     </button>
 </div>
 

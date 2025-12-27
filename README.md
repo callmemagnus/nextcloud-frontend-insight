@@ -1,8 +1,8 @@
-# FrontEndInsight
+# Frontend-Insight
 
 **Know what happens in your client's browser**
 
-FrontEndInsight is a Nextcloud app that captures client-side JavaScript errors and exceptions from your users' browsers, providing valuable insights into frontend issues that may otherwise go unnoticed.
+Frontend-Insight is a Nextcloud app that captures client-side JavaScript errors and exceptions from your users' browsers, providing valuable insights into frontend issues that may otherwise go unnoticed.
 
 ## Features
 
@@ -43,7 +43,7 @@ _Configure error collection, retention policy, and group permissions_
 ### From Nextcloud App Store
 
 1. Navigate to **Apps** in your Nextcloud instance
-2. Search for **FrontEndInsight**
+2. Search for **frontend-insight**
 3. Click **Download and enable**
 
 ### Manual Installation
@@ -51,12 +51,12 @@ _Configure error collection, retention policy, and group permissions_
 1. Clone this repository into your Nextcloud apps directory:
    ```bash
    cd /path/to/nextcloud/apps
-   git clone https://github.com/callmemagnus/nextcloud-frontend-insight.git frontendinsight
+   git clone https://github.com/callmemagnus/nextcloud-frontend-insight.git frontend-insight
    ```
 
 2. Install dependencies and build the app:
    ```bash
-   cd frontendinsight
+   cd frontend-insight
    npm install
    npm run build
    composer install --no-dev
@@ -64,14 +64,14 @@ _Configure error collection, retention policy, and group permissions_
 
 3. Enable the app:
    ```bash
-   php occ app:enable frontendinsight
+   php occ app:enable frontend-insight
    ```
 
 ## Configuration
 
 ### Admin Settings
 
-Navigate to **Settings** → **Administration** → **FrontEndInsight** to configure:
+Navigate to **Settings** → **Administration** → **Frontend Insight** to configure:
 
 #### Collection Settings
 - **Collect JavaScript errors**: Enable/disable capture of standard `error` events
@@ -88,7 +88,7 @@ Navigate to **Settings** → **Administration** → **FrontEndInsight** to confi
 
 ### Viewing Events
 
-1. Navigate to **Settings** → **Administration** → **FrontEndInsight**
+1. Navigate to **Settings** → **Administration** → **Frontend Insight**
 2. Use the **Event Browser** to view captured errors:
    - **Filter**: Search across all event fields (excluding timestamps)
    - **Sort**: Order by timestamp, type, message, URL, or file
@@ -102,11 +102,11 @@ Navigate to **Settings** → **Administration** → **FrontEndInsight** to confi
 
 ## How It Works
 
-1. **Client Script**: When a user accesses any Nextcloud page, the FrontEndInsight client script is automatically loaded
+1. **Client Script**: When a user accesses any Nextcloud page, the Frontend Insight client script is automatically loaded
 2. **Error Listening**: The script listens for:
    - JavaScript errors via `window.addEventListener('error')`
    - Unhandled promise rejections via `window.addEventListener('unhandledrejection')`
-3. **Reporting**: When an error occurs, the client sends it to `/apps/frontendinsight/report/error` with:
+3. **Reporting**: When an error occurs, the client sends it to `/apps/frontend-insight/report/error` with:
    - Timestamp
    - Error type
    - User agent
@@ -141,7 +141,7 @@ npm run check
 ### Project Structure
 
 ```
-frontendinsight/
+frontend-insight/
 ├── appinfo/
 │   ├── info.xml           # App metadata
 │   └── routes.php         # HTTP routing
@@ -164,7 +164,7 @@ frontendinsight/
 ### Tech Stack
 
 **Backend:**
-- PHP 8.0+ with Nextcloud App Framework
+- PHP 8.2+ with Nextcloud App Framework
 - Database abstraction (supports SQLite, MySQL, PostgreSQL)
 
 **Frontend:**
@@ -195,17 +195,17 @@ See [API.md](API.md) for detailed API documentation, including:
 ### No errors are being captured
 
 1. Check that the app is enabled: `php occ app:list`
-2. Verify collection settings in **Settings** → **FrontEndInsight**
+2. Verify collection settings in **Settings** → **Frontend-Insight**
 3. Check browser console for the initialization message:
    ```
-   frontendinsight is enabled, sending error: true, unhandledrejection: true
+   frontend-insight is enabled, sending error: true, unhandledrejection: true
    ```
 4. If using group restrictions, ensure the user is in an allowed group
 
 ### Events not appearing in the UI
 
 1. Check browser console for JavaScript errors in the event browser itself
-2. Verify API endpoints are accessible: `GET /apps/frontendinsight/api/1.0/events`
+2. Verify API endpoints are accessible: `GET /apps/frontend-insight/api/1.0/events`
 3. Check Nextcloud logs for PHP errors
 
 ### Rate limit errors (HTTP 429)

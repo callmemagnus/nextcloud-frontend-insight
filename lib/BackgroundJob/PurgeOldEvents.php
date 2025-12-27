@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OCA\FrontEndInsight\BackgroundJob;
+namespace OCA\FrontendInsight\BackgroundJob;
 
-use OCA\FrontEndInsight\AppInfo\Application;
-use OCA\FrontEndInsight\Db\EventMapper;
+use OCA\FrontendInsight\AppInfo\Application;
+use OCA\FrontendInsight\Db\EventMapper;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\TimedJob;
 use OCP\IAppConfig;
@@ -34,7 +34,7 @@ class PurgeOldEvents extends TimedJob {
 			$threshold = $nowMs - ($hours * 60 * 60 * 1000);
 			$this->eventMapper->deleteEventsOlderThan($threshold);
 		} catch (\Throwable $e) {
-			$this->logger->error('Failed to purge old FrontEndInsight events: ' . $e->getMessage(), [
+			$this->logger->error('Failed to purge old FrontendInsight events: ' . $e->getMessage(), [
 				'exception' => $e,
 			]);
 		}

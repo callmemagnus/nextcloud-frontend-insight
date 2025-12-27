@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-script('frontendinsight', 'event-browser.iife');
+script(\OCA\FrontendInsight\AppInfo\Application::APP_ID, 'event-browser.iife');
 
 ?>
 <main id="app-content" style="padding: 1em;">

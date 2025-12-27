@@ -1,4 +1,4 @@
-# FrontEndInsight – Engineering Guide (AGENTS)
+# FrontendInsight – Engineering Guide (AGENTS)
 
 This document captures practical conventions, commands, and patterns for working on this repository. It is intended for both humans and automation agents.
 
@@ -38,7 +38,7 @@ This document captures practical conventions, commands, and patterns for working
   - Prefer stable updates with `--prefer-stable`; avoid forcing major upgrades of transitive deps that conflict with OCP.
 
 ## PHP code guidelines
-- Namespaces: `OCA\FrontEndInsight\...`
+- Namespaces: `OCA\FrontendInsight\...`
 - Controllers extend `OCP\AppFramework\Controller\Controller` and may use attributes like `#[CORS]` and `#[ApiRoute]`.
 - DB layer
   - Entities in `lib/Db/*` and mappers extend `OCP\AppFramework\Db\QBMapper`.
@@ -58,7 +58,7 @@ This document captures practical conventions, commands, and patterns for working
   - Use `@nextcloud/router` `generateUrl()` for app routes, including templated version segments.
   - Use `@nextcloud/axios` for requests; it’s pre-configured for Nextcloud auth/headers.
 - Error reporting
-  - `src/client/index.ts` listens for `unhandledrejection` and `error` and posts to `/apps/frontendinsight/report/error`.
+  - `src/client/index.ts` listens for `unhandledrejection` and `error` and posts to `/apps/frontend_insight/report/error`.
   - Admin settings control what is collected via initial state provided in `Application::boot()` and consumed via `@nextcloud/initial-state`.
 - Event viewer UI
   - Shows the time the first event was received (hidden if not available)
@@ -138,7 +138,7 @@ See API.md for full API reference.
 
     async function load() {
       loading = true;
-      const url = generateUrl('/apps/frontendinsight/api/1.0/events');
+      const url = generateUrl('/apps/frontend_insight/api/1.0/events');
       const { data } = await axios.get(url);
       rows = data.values;
       loading = false;

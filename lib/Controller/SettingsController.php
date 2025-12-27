@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\FrontEndInsight\Controller;
+namespace OCA\FrontendInsight\Controller;
 
-use OCA\FrontEndInsight\AppInfo\Application;
+use OCA\FrontendInsight\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;

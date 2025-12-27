@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <info>
-	<id>frontendinsight</id>
+	<id>frontend_insight</id>
 	<name>Frontend Insight</name>
 	<summary>Know what happens in your client's browser</summary>
 	<description><![CDATA[🔍 **Capture and analyze JavaScript errors from your users' browsers in real-time!**
 
-FrontEndInsight gives you **visibility into frontend issues that would otherwise go unnoticed**.
+FrontendInsight gives you **visibility into frontend issues that would otherwise go unnoticed**.
 
 ✨ **Key Features:**
 • 🐛 Automatic tracking of client-side errors and unhandled promise rejections
@@ -20,7 +20,7 @@ FrontEndInsight gives you **visibility into frontend issues that would otherwise
 	<version>1.0.0</version>
 	<licence>agpl</licence>
 	<author mail="magnus@magooweb.com" homepage="http://magnus.anderssen.ch">Magnus Anderssen</author>
-	<namespace>FrontEndInsight</namespace>
+	<namespace>FrontendInsight</namespace>
 	<category>tools</category>
 
 	<website>https://github.com/callmemagnus/nextcloud-frontend-insight/</website>
@@ -32,12 +32,12 @@ FrontEndInsight gives you **visibility into frontend issues that would otherwise
 	</dependencies>
 
 	<settings>
-		<admin>OCA\FrontEndInsight\Settings\FrontendInsightAdminSettings</admin>
-		<admin-section>OCA\FrontEndInsight\Sections\FrontendInsightAdminSection</admin-section>
+		<admin>OCA\FrontendInsight\Settings\FrontendInsightAdminSettings</admin>
+		<admin-section>OCA\FrontendInsight\Sections\FrontendInsightAdminSection</admin-section>
 	</settings>
 
 	<background-jobs>
-		<job>OCA\FrontEndInsight\BackgroundJob\PurgeOldEvents</job>
+		<job>OCA\FrontendInsight\BackgroundJob\PurgeOldEvents</job>
 	</background-jobs>
 
 </info>

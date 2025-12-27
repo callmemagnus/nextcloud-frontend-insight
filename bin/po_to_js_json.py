@@ -82,7 +82,7 @@ for l in lines:
 template = {}
 template['js'] = """
 OC.L10N.register(
-    "frontendinsight",
+    "frontend_insight",
     {
     %%translations%%
 },

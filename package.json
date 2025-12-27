@@ -1,5 +1,5 @@
 {
-  "name": "frontendinsight",
+  "name": "frontend_insight",
   "version": "1.0.0",
   "description": "Nextcloud app to capture and analyze client-side JavaScript errors",
   "license": "AGPL-3.0-or-later",
@@ -10,7 +10,6 @@
   },
   "scripts": {
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "preview:bo": "vite preview",
     "build": "run-p build:*",
     "build:event-browser": "vite build",
     "build:client": "esbuild src/client/index.ts --bundle --outfile=js/client.js",

@@ -10,7 +10,6 @@ const base = url.slice(0, 4).join('/')
 
 
 export function removeBase(url: string) : string{
-    console.log('base', base)
     return url.replace(
         new RegExp(`^${base}`),
         ''

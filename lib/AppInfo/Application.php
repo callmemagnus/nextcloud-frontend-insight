@@ -7,7 +7,7 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\FrontEndInsight\AppInfo;
+namespace OCA\FrontendInsight\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -29,7 +29,7 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
 class Application extends App implements IBootstrap {
-	public const APP_ID = 'frontendinsight';
+	public const APP_ID = 'frontend_insight';
 
 	/**
 	 * @throws ContainerExceptionInterface
@@ -86,7 +86,7 @@ class Application extends App implements IBootstrap {
 		Util::addInitScript(self::APP_ID, 'client');
 
 
-		//		$linkToJs = $urlGenerator->linkToRoute('frontendinsight.Scripts.script', [
+		//		$linkToJs = $urlGenerator->linkToRoute('frontend_insight.Scripts.script', [
 		//			'v' => $appConfig->getValueString(self::APP_ID, 'cachebuster', '0'),
 		//		]);
 		//
@@ -115,7 +115,7 @@ class Application extends App implements IBootstrap {
 				$tzId = (string)$cfg->getUserValue($user->getUID(), 'core', 'timezone', 'UTC');
 			}
 			$tz = new \DateTimeZone($tzId ?: 'UTC');
-			$offsetMin = (int) ((new \DateTime('now', $tz))->getOffset() / 60);
+			$offsetMin = (int)((new \DateTime('now', $tz))->getOffset() / 60);
 			$initialState->provideInitialState('user_timezone', $tz->getName());
 			$initialState->provideInitialState('user_timezone_offset_min', $offsetMin);
 		} catch (\Throwable $e) {
@@ -176,7 +176,7 @@ class Application extends App implements IBootstrap {
 						return [
 							'id' => self::APP_ID,
 							'order' => 50,
-							'href' => $urlGenerator->linkToRoute('frontendinsight.EventBrowser.index'),
+							'href' => $urlGenerator->linkToRoute('frontend_insight.EventBrowser.index'),
 							'icon' => $urlGenerator->imagePath(self::APP_ID, 'app-white.svg'),
 							'name' => 'Frontend Insight',
 						];

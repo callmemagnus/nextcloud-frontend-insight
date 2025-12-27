@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OCA\FrontEndInsight\Sections;
+namespace OCA\FrontendInsight\Sections;
 
-use OCA\FrontEndInsight\AppInfo\Application;
+use OCA\FrontendInsight\AppInfo\Application;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 use OCP\Settings\IIconSection;

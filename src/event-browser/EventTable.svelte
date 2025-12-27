@@ -20,8 +20,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     } from "./stores/dateDisplay";
     import { setTotalItems } from "./stores/eventData";
     import { translate } from "@nextcloud/l10n";
+    import {APP_ID} from "../constants.js";
 
-    const url = generateUrl("/apps/frontendinsight/api/1.0/events");
+    const url = generateUrl(`/apps/${APP_ID}/api/1.0/events`);
     let cursor = $state(0);
     let limit = $state(10);
     let totalItems = $state(0);
@@ -35,35 +36,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         const result = { ...expanded } as Record<number, boolean>;
         result[index] = !Boolean(expanded[index]);
         expanded = result;
-    }
-
-    let copied = $state<{
-        text: string;
-        x: number;
-        y: number;
-        visible: boolean;
-    }>({ text: "", x: 0, y: 0, visible: false });
-    let copyHideTimer: any = null;
-
-    async function copyToClipboard(text: string, ev?: MouseEvent) {
-        try {
-            await navigator.clipboard.writeText(text);
-            if (ev) {
-                const rect = (ev.target as HTMLElement).getBoundingClientRect();
-                copied = {
-                    text: translate("frontendinsight", "Copied!"),
-                    x: rect.left + rect.width / 2,
-                    y: rect.top - 8,
-                    visible: true,
-                };
-                clearTimeout(copyHideTimer);
-                copyHideTimer = setTimeout(() => {
-                    copied = { ...copied, visible: false };
-                }, 1200);
-            }
-        } catch (e) {
-            console.warn("Clipboard write failed", e);
-        }
     }
 
     // Server-side filter & sort controls
@@ -144,11 +116,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     }
 
     function clearSelection() {
-        if (document.selection && document.selection.empty) {
-            document.selection.empty();
-        } else if (window.getSelection) {
-            var sel = window.getSelection();
-            sel.removeAllRanges();
+         if (window.getSelection) {
+            const sel = window.getSelection();
+            sel?.removeAllRanges();
         }
     }
 
@@ -158,7 +128,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 </script>
 
 <details class="table-controls" style="margin-bottom: 16px;">
-    <summary>{translate("frontendinsight", "Filters")}</summary>
+    <summary>{translate(APP_ID, "Filters")}</summary>
     <form
         onsubmit={(e) => {
             e.preventDefault();
@@ -166,40 +136,40 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         }}
     >
         <label>
-            {translate("frontendinsight", "Filter")}:
+            {translate(APP_ID, "Filter")}:
             <input
                 type="text"
-                placeholder={translate("frontendinsight", "Search (excludes timestamps)")}
+                placeholder={translate(APP_ID, "Search (excludes timestamps)")}
                 bind:value={filterText}
             />
         </label>
         <label>
-            {translate("frontendinsight", "Sort by")}:
+            {translate(APP_ID, "Sort by")}:
             <select bind:value={sortColumn}>
-                <option value="timestamp">{translate("frontendinsight", "Timestamp")}</option>
-                <option value="type">{translate("frontendinsight", "Type")}</option>
-                <option value="message">{translate("frontendinsight", "Message")}</option>
-                <option value="url">{translate("frontendinsight", "URL")}</option>
-                <option value="file">{translate("frontendinsight", "File")}</option>
+                <option value="timestamp">{translate(APP_ID, "Timestamp")}</option>
+                <option value="type">{translate(APP_ID, "Type")}</option>
+                <option value="message">{translate(APP_ID, "Message")}</option>
+                <option value="url">{translate(APP_ID, "URL")}</option>
+                <option value="file">{translate(APP_ID, "File")}</option>
             </select>
         </label>
         <label>
-            {translate("frontendinsight", "Order")}:
+            {translate(APP_ID, "Order")}:
             <select bind:value={sortDir}>
-                <option value="desc">{translate("frontendinsight", "Desc")}</option>
-                <option value="asc">{translate("frontendinsight", "Asc")}</option>
+                <option value="desc">{translate(APP_ID, "Desc")}</option>
+                <option value="asc">{translate(APP_ID, "Asc")}</option>
             </select>
         </label>
-        <button type="submit">{translate("frontendinsight", "Apply")}</button>
+        <button type="submit">{translate(APP_ID, "Apply")}</button>
     </form>
 </details>
 
 {#if loading}
-    <p>{translate("frontendinsight", "Loading…")}</p>
+    <p>{translate(APP_ID, "Loading…")}</p>
 {:else if rows && rows.length === 0}
     <div class="empty-state">
-        <p>{translate("frontendinsight", "No results")}</p>
-        <small>{translate("frontendinsight", "There are no events to display.")}</small>
+        <p>{translate(APP_ID, "No results")}</p>
+        <small>{translate(APP_ID, "There are no events to display.")}</small>
     </div>
 {:else if rows}
     <div class="">
@@ -207,10 +177,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             <thead>
                 <tr>
                     <th class="col-expander"></th>
-                    <th>{translate("frontendinsight", "Timestamp")}</th>
-                    <th>{translate("frontendinsight", "Type")}</th>
-                    <th>{translate("frontendinsight", "Message")}</th>
-                    <th>{translate("frontendinsight", "URL")}</th>
+                    <th>{translate(APP_ID, "Timestamp")}</th>
+                    <th>{translate(APP_ID, "Type")}</th>
+                    <th>{translate(APP_ID, "Message")}</th>
+                    <th>{translate(APP_ID, "URL")}</th>
                 </tr>
             </thead>
             <tbody>
@@ -227,8 +197,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 type="button"
                                 class="mwb-icon-expander"
                                 aria-label={expanded[i]
-                                    ? translate("frontendinsight", "Hide details")
-                                    : translate("frontendinsight", "Show details")}
+                                    ? translate(APP_ID, "Hide details")
+                                    : translate(APP_ID, "Show details")}
                                 onclick={() => toggleDetails(i)}
                             ></button>
                         </td>
@@ -254,17 +224,17 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                             <td colspan="7">
                                 <div class="details-grid">
                                     <div>
-                                        <strong>{translate("frontendinsight", "User Agent")}</strong>
+                                        <strong>{translate(APP_ID, "User Agent")}</strong>
                                         <div class="mono">
                                             {event.useragent}
                                         </div>
                                     </div>
                                     <div>
-                                        <strong>{translate("frontendinsight", "Stack")}</strong>
+                                        <strong>{translate(APP_ID, "Stack")}</strong>
                                         <pre class="mono">{event.stack}</pre>
                                     </div>
                                     <div>
-                                        <strong>{translate("frontendinsight", "File")}</strong>
+                                        <strong>{translate(APP_ID, "File")}</strong>
                                         <CopyText
                                             text={event.file ?? "-"}
                                             title={event.file ?? "-"}
@@ -298,7 +268,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             />
             <div class="controls">
                 <label>
-                    {translate("frontendinsight", "Timezone")}:
+                    {translate(APP_ID, "Timezone")}:
                     <select
                         bind:value={tz}
                         onchange={(e) =>
@@ -306,15 +276,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 (e.target as HTMLSelectElement).value as any,
                             )}
                     >
-                        <option value="utc">{translate("frontendinsight", "UTC")}</option>
-                        <option value="browser">{translate("frontendinsight", "Browser")}</option>
+                        <option value="utc">{translate(APP_ID, "UTC")}</option>
+                        <option value="browser">{translate(APP_ID, "Browser")}</option>
                         {#if showNC}
-                            <option value="nextcloud">{translate("frontendinsight", "Nextcloud")}</option>
+                            <option value="nextcloud">{translate(APP_ID, "Nextcloud")}</option>
                         {/if}
                     </select>
                 </label>
                 <label>
-                    {translate("frontendinsight", "Format")}:
+                    {translate(APP_ID, "Format")}:
                     <select
                         bind:value={fmt}
                         onchange={(e) =>
@@ -322,10 +292,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
                                 (e.target as HTMLSelectElement).value as any,
                             )}
                     >
-                        <option value="iso">{translate("frontendinsight", "ISO")}</option>
-                        <option value="human">{translate("frontendinsight", "Human")}</option>
-                        <option value="local">{translate("frontendinsight", "Local")}</option>
-                        <option value="ago">{translate("frontendinsight", "Ago")}</option>
+                        <option value="iso">{translate(APP_ID, "ISO")}</option>
+                        <option value="human">{translate(APP_ID, "Human")}</option>
+                        <option value="local">{translate(APP_ID, "Local")}</option>
+                        <option value="ago">{translate(APP_ID, "Ago")}</option>
                     </select>
                 </label>
             </div>

@@ -4,6 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <script lang="ts">
     import { translate } from "@nextcloud/l10n";
+    import {APP_ID} from "../constants.js";
 
     const {
         text,
@@ -36,13 +37,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         <button
             type="button"
             class="mwb-icon-copy"
-            aria-label={translate("frontendinsight", "Copy")}
-            title={translate("frontendinsight", "Copy")}
+            aria-label={translate(APP_ID, "Copy")}
+            title={translate(APP_ID, "Copy")}
             onclick={copy}
         ></button>
     {/if}
     {#if copied}
-        <div class="mwb-copied">{translate("frontendinsight", "Copied!")}</div>
+        <div class="mwb-copied">{translate(APP_ID, "Copied!")}</div>
     {/if}
 </div>
 

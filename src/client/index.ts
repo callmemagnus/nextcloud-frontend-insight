@@ -7,19 +7,19 @@ import type {Event} from '../types.js';
 import {Throttle} from "./Throttle.js";
 import {generateUrl} from "@nextcloud/router";
 import {loadState} from '@nextcloud/initial-state';
+import {APP_ID} from "../constants.js";
 
-const appId = 'frontendinsight'
 
-const sendError = loadState(appId, 'collect_errors', true);
-const sendUnhandledRejection = loadState(appId, 'collect_unhandled_rejections', true)
+const sendError = loadState(APP_ID, 'collect_errors', true);
+const sendUnhandledRejection = loadState(APP_ID, 'collect_unhandled_rejections', true)
 
-console.log(`${appId} is enabled, sending error: ${sendError}, unhandledrejection: ${sendUnhandledRejection})`)
+console.log(`${APP_ID} is enabled, sending error: ${sendError}, unhandledrejection: ${sendUnhandledRejection})`)
 
 const throttle = new Throttle(send, 10, 10)
 
 async function send(payload: Event) {
     try {
-        await axios.post(generateUrl(`/apps/${appId}/report/error`), payload)
+        await axios.post(generateUrl(`/apps/${APP_ID}/report/error`), payload)
     } catch (e) {
         // ignore
     }
@@ -72,12 +72,3 @@ if (sendError) {
         plan(e)
     })
 }
-
-/*
-setTimeout(() => {
-    axios.get<{
-        values: Event[]
-    }>(generateUrl(`/apps/frontendinsight/api/{version}/events?limit=4&url=${encodeURI('dashboard')}`, {version: '1.0'})).then(r => {
-        console.log(r.data)
-    })
-}, 2000)*/

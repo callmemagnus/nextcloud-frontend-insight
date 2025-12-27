@@ -4,8 +4,7 @@
  */
 import { writable } from 'svelte/store';
 import { loadState } from '@nextcloud/initial-state';
-
-const APP_ID = 'frontendinsight';
+import {APP_ID} from "../../constants.js";
 
 export type TimezoneMode = 'utc' | 'browser' | 'nextcloud';
 export type DateFormat = 'iso' | 'human' | 'local' | 'ago';

@@ -1,8 +1,8 @@
-# FrontEndInsight API
+# FrontendInsight API
 
-This document describes the public HTTP API exposed by the FrontEndInsight Nextcloud app.
+This document describes the public HTTP API exposed by the FrontendInsight Nextcloud app.
 
-Base path: `/apps/frontendinsight`
+Base path: `/apps/frontend_insight`
 
 All endpoints respond with JSON unless otherwise noted. Authentication is handled by Nextcloud; some endpoints are marked as PublicPage and do not require an authenticated session.
 
@@ -40,7 +40,7 @@ All endpoints respond with JSON unless otherwise noted. Authentication is handle
 - Example (curl):
 ```bash
 curl -X POST \
-  "https://nextcloud.example.com/apps/frontendinsight/report/error" \
+  "https://nextcloud.example.com/apps/frontend_insight/report/error" \
   -H "Content-Type: application/json" \
   -d '{
     "timestamp": 1733250000000,

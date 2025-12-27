@@ -4,6 +4,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <script lang="ts">
     import { translate } from "@nextcloud/l10n";
+    import {APP_ID} from "../constants.js";
 
     const { cursor, limit, total, onPrev, onNext } = $props<{
         cursor: number;
@@ -28,15 +29,15 @@ SPDX-License-Identifier: AGPL-3.0-or-later
             class="mwb-btn"
             disabled={!canPrev}
             onclick={onPrev}
-            aria-label={translate("frontendinsight", "Previous page")}>← {translate("frontendinsight", "Prev")}</button
+            aria-label={translate(APP_ID, "Previous page")}>← {translate(APP_ID, "Prev")}</button
         >
-        <span class="info">{translate("frontendinsight", "Page {page} / {total}", { page: page + 1, total: totalPages })}</span>
+        <span class="info">{translate(APP_ID, "Page {page} / {total}", { page: page + 1, total: totalPages })}</span>
         <button
             type="button"
             class="mwb-btn"
             disabled={!canNext}
             onclick={onNext}
-            aria-label={translate("frontendinsight", "Next page")}>{translate("frontendinsight", "Next")} →</button
+            aria-label={translate(APP_ID, "Next page")}>{translate(APP_ID, "Next")} →</button
         >
     </div>
 {/if}

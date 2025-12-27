@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OCA\FrontEndInsight\Migration;
+namespace OCA\FrontendInsight\Migration;
 
 use Closure;
 use OCP\DB\ISchemaWrapper;

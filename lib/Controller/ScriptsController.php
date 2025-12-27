@@ -7,15 +7,14 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\FrontEndInsight\Controller;
+namespace OCA\FrontendInsight\Controller;
 
-use OCA\FrontEndInsight\AppInfo\Application;
-use OCA\FrontEndInsight\Db\EventMapper;
+use OCA\FrontendInsight\AppInfo\Application;
+use OCA\FrontendInsight\Db\EventMapper;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\AnonRateLimit;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
-use OCP\AppFramework\Http\Attribute\NoAdminRequired;
 use OCP\AppFramework\Http\Attribute\NoCSRFRequired;
 use OCP\AppFramework\Http\Attribute\PublicPage;
 use OCP\AppFramework\Http\Attribute\UserRateLimit;
@@ -51,7 +50,7 @@ class ScriptsController extends Controller {
 		$this->file = fopen(__DIR__ . '/../../js/client.js', 'r');
 
 		$urlGenerator = Server::get(IURLGenerator::class);
-		$this->reportUrl = $urlGenerator->linkToRouteAbsolute('frontendinsight.Scripts.reportError');
+		$this->reportUrl = $urlGenerator->linkToRouteAbsolute(Application::APP_ID . '.Scripts.reportError');
 	}
 
 	/**

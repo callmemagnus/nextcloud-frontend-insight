@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
+use OCA\FrontendInsight\AppInfo\Application;
 use OCP\IURLGenerator;
 use OCP\Server;
 
@@ -12,7 +13,7 @@ use OCP\Server;
 /** @var string $requesttoken */
 
 $urlGenerator = Server::get(IURLGenerator::class);
-$saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
+$saveUrl = $urlGenerator->linkToRoute(Application::APP_ID . '.Settings.save');
 ?>
 
 <style>
@@ -22,6 +23,7 @@ $saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
         opacity: 0.7;
         pointer-events: none;
     }
+
     .fei-save-btn[aria-busy="true"]::after {
         content: '';
         position: absolute;
@@ -31,13 +33,17 @@ $saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
         height: 14px;
         margin: -7px 0 0 -7px;
         border-radius: 50%;
-        border: 2px solid rgba(255,255,255,0.6);
-        border-top-color: rgba(255,255,255,1);
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        border-top-color: rgba(255, 255, 255, 1);
         animation: fei-spin 0.8s linear infinite;
     }
+
     @keyframes fei-spin {
-        to { transform: rotate(360deg); }
+        to {
+            transform: rotate(360deg);
+        }
     }
+
     /* Groups checkbox list styling */
     .fei-groups-list {
         max-height: 320px; /* approx. room for ~10 items without crowding */
@@ -48,6 +54,7 @@ $saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
         border: 1px solid var(--color-border, #d1d5db);
         border-radius: 2px; /* tighter corners */
     }
+
     .fei-groups-list .fei-group-item {
         display: flex;
         align-items: center;
@@ -57,26 +64,32 @@ $saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
         line-height: 1.5; /* ultra-compact line height */
         margin: 0; /* remove any default extra space */
     }
+
     .fei-groups-list input.checkbox {
         margin: 0 6px 0 0; /* Nextcloud checkbox with right spacing */
     }
+
     .fei-groups-list label {
         margin: 0; /* remove any default label margins */
     }
+
     /* Reduce hover highlight thickness to avoid visual spacing */
     .fei-groups-list .fei-group-item:hover {
-        background: var(--color-background-hover, rgba(0,0,0,0.03));
+        background: var(--color-background-hover, rgba(0, 0, 0, 0.03));
     }
+
     .fei-groups-list input[type="checkbox"]:focus + label {
         outline: 2px solid var(--color-primary, #1e72ff);
         outline-offset: 2px;
         border-radius: 4px;
     }
+
     .fei-groups-list label {
         cursor: pointer;
         user-select: none;
         flex: 1;
     }
+
     .fei-groups-disabled .fei-group-item,
     .fei-groups-disabled input[type="checkbox"],
     .fei-groups-disabled label {
@@ -128,7 +141,9 @@ $saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
             	}
             	?>
                 <div class="fei-group-item">
-                    <input type="checkbox" class="checkbox" id="fei-group-<?php p(htmlspecialchars($gid, ENT_QUOTES)); ?>" name="allowed_groups[]" value="<?php p($gid); ?>" <?php echo $checked ? 'checked' : ''; ?> <?php echo $disabled ? 'disabled' : ''; ?> />
+                    <input type="checkbox" class="checkbox"
+                           id="fei-group-<?php p(htmlspecialchars($gid, ENT_QUOTES)); ?>" name="allowed_groups[]"
+                           value="<?php p($gid); ?>" <?php echo $checked ? 'checked' : ''; ?> <?php echo $disabled ? 'disabled' : ''; ?> />
                     <label for="fei-group-<?php p(htmlspecialchars($gid, ENT_QUOTES)); ?>"><?php p($dn); ?></label>
                 </div>
             <?php endforeach; ?>
@@ -152,12 +167,13 @@ $saveUrl = $urlGenerator->linkToRoute('frontendinsight.Settings.save');
     <div style="margin: 8px 0;">
         <input type="number" class="number" id="fei-retention" name="retention_hours" min="1"
                value="<?php p((int)($retention_hours ?? (24 * 30))); ?>" style="width: 120px; margin-right: 16px;">
-        
+
         <div class="description"><?php p($l->t('Reports older than this period will be permanently deleted by a background job.')); ?></div>
     </div>
 
     <div style="margin: 16px 0;">
-        <button type="submit" id="fei-save-btn" class="primary fei-save-btn"><?php p($l->t('Save settings')); ?></button>
+        <button type="submit" id="fei-save-btn"
+                class="primary fei-save-btn"><?php p($l->t('Save settings')); ?></button>
         <?php if (!empty($saved)) { ?>
             <span id="fei-saved-msg" class="msg success inlineblock"
                   style="transition: opacity 300ms ease; margin-left: 8px;"><?php p($l->t('Settings saved.')); ?></span>

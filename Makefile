@@ -1,0 +1,179 @@
+# SPDX-FileCopyrightText: Bernhard Posselt <dev@bernhard-posselt.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Generic Makefile for building and packaging a Nextcloud app which uses npm and
+# Composer.
+#
+# Dependencies:
+# * make
+# * which
+# * curl: used if phpunit and composer are not installed to fetch them from the web
+# * tar: for building the archive
+# * npm: for building and testing everything JS
+#
+# If no composer.json is in the app root directory, the Composer step
+# will be skipped. The same goes for the package.json which can be located in
+# the app root or the js/ directory.
+#
+# The npm command by launches the npm build script:
+#
+#    npm run build
+#
+# The npm test command launches the npm test script:
+#
+#    npm run test
+#
+# The idea behind this is to be completely testing and build tool agnostic. All
+# build tools and additional package managers should be installed locally in
+# your project, since this won't pollute people's global namespace.
+#
+# The following npm scripts in your package.json install and update the bower
+# and npm dependencies and use gulp as build system (notice how everything is
+# run from the node_modules folder):
+#
+#    "scripts": {
+#        "test": "node node_modules/gulp-cli/bin/gulp.js karma",
+#        "prebuild": "npm install && node_modules/bower/bin/bower install && node_modules/bower/bin/bower update",
+#        "build": "node node_modules/gulp-cli/bin/gulp.js"
+#    },
+
+app_name=$(notdir $(CURDIR))
+project_dir=$(CURDIR)/../$(app_name)
+build_dir=$(CURDIR)/build/artifacts
+appstore_dir=$(build_dir)/appstore
+source_dir=$(build_dir)/source
+sign_dir=$(build_dir)/sign
+
+build_tools_directory=$(CURDIR)/build/tools
+
+npm=$(shell which npm 2> /dev/null)
+composer=$(shell which composer 2> /dev/null)
+cert_dir=$(HOME)/.nextcloud/certificates
+
+all: build
+
+# Fetches the PHP and JS dependencies and compiles the JS. If no composer.json
+# is present, the composer step is skipped, if no package.json or js/package.json
+# is present, the npm step is skipped
+.PHONY: build
+build: composer npm
+
+
+# Installs and updates the composer dependencies. If composer is not installed
+# a copy is fetched from the web
+.PHONY: composer
+composer:
+ifeq (, $(composer))
+	@echo "No composer command available, downloading a copy from the web"
+	mkdir -p $(build_tools_directory)
+	curl -sS https://getcomposer.org/installer | php
+	mv composer.phar $(build_tools_directory)
+	php $(build_tools_directory)/composer.phar install --prefer-dist
+else
+	composer install --prefer-dist
+endif
+
+# Installs npm dependencies
+.PHONY: npm
+npm:
+	npm ci
+	npm run build
+
+# Removes the appstore build
+.PHONY: clean
+clean:
+	rm -rf ./build
+
+# Same as clean but also removes dependencies installed by composer, bower and
+# npm
+.PHONY: distclean
+distclean: clean
+	rm -rf vendor
+	rm -rf node_modules
+
+# Builds the source and appstore package
+.PHONY: dist
+dist:
+	make source
+	make appstore
+
+# Builds the source package
+.PHONY: source
+source:
+	rm -rf $(source_dir)
+	mkdir -p $(source_dir)
+	echo "$(app_name)" "$(source_dir)"
+
+	tar cvzf $(source_dir).tar.gz  \
+	--exclude-vcs-ignores \
+	--exclude-vcs \
+	--exclude="../$(app_name)/build" \
+	--exclude="../$(app_name)/test" \
+	--exclude="../$(app_name)/bin" \
+	--exclude="../$(app_name)/node_modules" \
+	--exclude="../$(app_name)/*.log" \
+	--exclude="../$(app_name)/\.*" \
+	../$(app_name)
+
+# Builds the source package for the app store, ignores php and js tests
+.PHONY: appstore
+appstore:
+ifdef app_private_key
+	echo "Writing key"
+	mkdir -p $(cert_dir)
+	php ./bin/tools/file_from_env.php "app_private_key" "$(cert_dir)/$(app_name).key"
+endif
+ifdef app_public_crt
+	echo "Writing certificate"
+	mkdir -p $(cert_dir)
+	php ./bin/tools/file_from_env.php "app_public_crt" "$(cert_dir)/$(app_name).crt"
+endif
+	rm -rf $(appstore_dir)
+	mkdir -p $(sign_dir)
+	rsync -a \
+	--exclude=".git" \
+	--exclude=".gitignore" \
+	--exclude="composer.*" \
+	--exclude="build" \
+	--exclude="bin" \
+	--exclude="tests" \
+	--exclude="Makefile" \
+	--exclude="*.log" \
+	--exclude="psalm.xml" \
+	--exclude="composer.*" \
+	--exclude="node_modules" \
+	--exclude="src" \
+	--exclude="js/tests" \
+	--exclude="js/test" \
+	--exclude="js/*.log" \
+	--exclude="js/package.json" \
+	--exclude="js/bower.json" \
+	--exclude="js/karma.*" \
+	--exclude="js/protractor.*" \
+	--exclude="vendor" \
+	--exclude="Makefile" \
+	--exclude="package*.json" \
+	--exclude="karma.*" \
+	--exclude="protractor\.*" \
+	--exclude=".*" \
+	--exclude="tsconfig*" \
+	--exclude="*.config.*s" \
+	$(project_dir)/  $(sign_dir)/$(app_name)
+	@if [ -f $(cert_dir)/$(app_name).key ]; then \
+		echo "Signing app files…"; \
+		php ../../occ integrity:sign-app \
+			--privateKey=$(cert_dir)/$(app_name).key \
+			--certificate=$(cert_dir)/$(app_name).crt \
+			--path=$(sign_dir)/$(app_name); \
+	fi
+	tar -czvf $(build_dir)/$(app_name).tar.gz \
+		-C $(sign_dir) $(app_name)
+	@if [ -f $(cert_dir)/$(app_name).key ]; then \
+		echo "Signing package…"; \
+		openssl dgst -sha512 -sign $(cert_dir)/$(app_name).key $(build_dir)/$(app_name).tar.gz | openssl base64; \
+	fi
+
+.PHONY: test
+test: composer
+	$(CURDIR)/vendor/phpunit/phpunit/phpunit -c tests/phpunit.xml
+	$(CURDIR)/vendor/phpunit/phpunit/phpunit -c phpunit.integration.xml

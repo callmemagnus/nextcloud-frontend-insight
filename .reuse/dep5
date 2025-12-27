@@ -1,0 +1,20 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Frontend Insight
+Upstream-Contact: Magnus Anderssen <magnus@magooweb.com>
+Source: https://github.com/nextcloud/profiler
+
+Files: .gitignore .* package-lock.json package.json composer.json composer.lock composer.phar src/.prettierrc src/global.d.ts tsconfig.json *.xml
+Copyright: Magnus Anderssen <magnus@magooweb.com>
+License: AGPL-3.0-or-later
+
+Files: .l10nignore l10n/*.js l10n/*.json translationfiles/*
+Copyright: Nextcloud translators <https://www.transifex.com/nextcloud/>
+License: AGPL-3.0-or-later
+
+Files: *.svelte *.ts *.js *.css *.php
+Copyright: Magnus Anderssen <magnus@magooweb.com>
+License: AGPL-3.0-or-later
+
+Files: *.md .tx/* .github/* bin/* img/*
+Copyright: Magnus Anderssen <magnus@magooweb.com>
+License: AGPL-3.0-or-later

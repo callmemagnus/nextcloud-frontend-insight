@@ -31,13 +31,12 @@ FrontendInsight gives you **visibility into frontend issues that would otherwise
 		<nextcloud min-version="30" max-version="32" />
 	</dependencies>
 
-	<settings>
-		<admin>OCA\FrontendInsight\Settings\FrontendInsightAdminSettings</admin>
-		<admin-section>OCA\FrontendInsight\Sections\FrontendInsightAdminSection</admin-section>
-	</settings>
-
 	<background-jobs>
 		<job>OCA\FrontendInsight\BackgroundJob\PurgeOldEvents</job>
 	</background-jobs>
 
+	<settings>
+		<admin>OCA\FrontendInsight\Settings\FrontendInsightAdminSettings</admin>
+		<admin-section>OCA\FrontendInsight\Sections\FrontendInsightAdminSection</admin-section>
+	</settings>
 </info>

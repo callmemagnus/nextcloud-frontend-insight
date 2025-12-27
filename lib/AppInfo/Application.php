@@ -55,13 +55,24 @@ class Application extends App implements IBootstrap {
 		$dispatcher->addListener(BeforeTemplateRenderedEvent::class, function (BeforeTemplateRenderedEvent $event) {
 			$appConfig = Server::get(IAppConfig::class);
 			$initialState = $this->getContainer()->get(IInitialState::class);
+			$userSession = Server::get(IUserSession::class);
+			$groupManager = Server::get(IGroupManager::class);
+
 			// Provide initial state for configuration UI
 			$sendError = $appConfig->getValueBool(self::APP_ID, 'collect_errors', true);
 			$sendUnhandled = $appConfig->getValueBool(self::APP_ID, 'collect_unhandled_rejections', true);
 
+			// Check if current user is admin
+			$isAdmin = false;
+			$user = $userSession->getUser();
+			if ($user !== null) {
+				$isAdmin = $groupManager->isAdmin($user->getUID());
+			}
+
 			// Legacy keys
 			$initialState->provideInitialState('collect_errors', $sendError);
 			$initialState->provideInitialState('collect_unhandled_rejections', $sendUnhandled);
+			$initialState->provideInitialState('is_admin', $isAdmin);
 		});
 	}
 

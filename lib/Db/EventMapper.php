@@ -155,6 +155,14 @@ class EventMapper extends QBMapper {
 		$this->delete($event);
 	}
 
+	/**
+	 * @throws Exception
+	 */
+	public function deleteAllEvents(): void {
+		$qb = $this->db->getQueryBuilder();
+		$qb->delete($this->getTableName());
+		$qb->executeStatement();
+	}
 
 	public function getEarliestEventTimestamp(): ?int {
 		$qb = $this->db->getQueryBuilder();

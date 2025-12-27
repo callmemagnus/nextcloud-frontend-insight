@@ -26,7 +26,8 @@ FrontendInsight gives you **visibility into frontend issues that would otherwise
 	<website>https://github.com/callmemagnus/nextcloud-frontend-insight/</website>
 	<bugs>https://github.com/callmemagnus/nextcloud-frontend-insight/issues</bugs>
 	<repository type="git">https://github.com/callmemagnus/nextcloud-frontend-insight.git</repository>
-
+	<screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/events.png</screenshot>
+	<screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/admin.png</screenshot>
 	<dependencies>
 		<nextcloud min-version="30" max-version="32" />
 	</dependencies>

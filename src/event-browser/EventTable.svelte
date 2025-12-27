@@ -18,7 +18,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         setTimezone,
         showNextcloudOption,
     } from "./stores/dateDisplay";
-    import { setTotalItems } from "./stores/eventData";
+    import { eventData, setTotalItems } from "./stores/eventData";
     import { translate } from "@nextcloud/l10n";
     import {APP_ID} from "../constants.js";
 
@@ -70,6 +70,21 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     $effect(() => {
         setTotalItems(totalItems);
+    });
+
+    // Listen for refresh triggers
+    let refreshTrigger = $state(0);
+    $effect(() => {
+        const unsub = eventData.subscribe((data) => {
+            if (data.refreshTrigger !== refreshTrigger) {
+                refreshTrigger = data.refreshTrigger;
+                if (refreshTrigger > 0) {
+                    cursor = 0;
+                    load();
+                }
+            }
+        });
+        return () => unsub();
     });
 
     const showNC = $state<boolean>(showNextcloudOption());

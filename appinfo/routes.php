@@ -10,6 +10,7 @@ return [
 		// API
 		['name' => 'Api#getEvents', 'url' => '/api/1.0/events', 'verb' => 'GET'],
 		['name' => 'Api#getStats', 'url' => '/api/1.0/stats', 'verb' => 'GET'],
+		['name' => 'Api#purgeAllEvents', 'url' => '/api/1.0/events/purge', 'verb' => 'DELETE'],
 		['name' => 'Api#preflighted_cors',
 			'url' => '/api/1.0/{path}',
 			'verb' => 'OPTIONS',

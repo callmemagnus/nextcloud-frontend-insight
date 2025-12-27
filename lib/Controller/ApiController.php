@@ -6,9 +6,13 @@ namespace OCA\FrontendInsight\Controller;
 
 use OCA\FrontendInsight\Db\EventMapper;
 use OCP\AppFramework\Controller;
+use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\CORS;
+use OCP\AppFramework\Http\JSONResponse;
 use OCP\DB\Exception;
+use OCP\IGroupManager;
 use OCP\IRequest;
+use OCP\IUserSession;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,8 +26,18 @@ class ApiController extends Controller {
 		IRequest $request,
 		private EventMapper $eventMapper,
 		private LoggerInterface $logger,
+		private IUserSession $userSession,
+		private IGroupManager $groupManager,
 	) {
 		parent::__construct($appName, $request);
+	}
+
+	private function isAdmin(): bool {
+		$user = $this->userSession->getUser();
+		if ($user === null) {
+			return false;
+		}
+		return $this->groupManager->isAdmin($user->getUID());
 	}
 
 	#[CORS]
@@ -65,5 +79,28 @@ class ApiController extends Controller {
 			'latestTimestamp' => $latest,
 			'byType' => (object)$byType,
 		];
+	}
+
+	#[CORS]
+	public function purgeAllEvents(): JSONResponse {
+		if (!$this->isAdmin()) {
+			return new JSONResponse(['message' => 'Forbidden'], Http::STATUS_FORBIDDEN);
+		}
+
+		try {
+			$this->eventMapper->deleteAllEvents();
+			$this->logger->info('All FrontendInsight events purged by admin user', [
+				'user' => $this->userSession->getUser()?->getUID(),
+			]);
+			return new JSONResponse(['success' => true]);
+		} catch (Exception $e) {
+			$this->logger->error('Failed to purge all events: ' . $e->getMessage(), [
+				'exception' => $e,
+			]);
+			return new JSONResponse(
+				['message' => 'Failed to purge events'],
+				Http::STATUS_INTERNAL_SERVER_ERROR
+			);
+		}
 	}
 }

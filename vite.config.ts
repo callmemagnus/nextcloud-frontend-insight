@@ -26,7 +26,7 @@ export default defineConfig((config) => {
                 formats: ["iife"],
                 entry: "src/event-browser/main.ts",
                 name: 'event-browser.js',
-            },
+            }
         }
     };
 });

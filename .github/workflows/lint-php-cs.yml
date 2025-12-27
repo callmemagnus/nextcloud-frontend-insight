@@ -11,7 +11,8 @@ on:
   pull_request:
   push:
     branches:
-      - !yolo/*
+      - '*'
+      - '!yolo/*'
 
 jobs:
   lint:

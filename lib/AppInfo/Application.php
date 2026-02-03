@@ -17,6 +17,7 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\IEventDispatcher;
+use OCA\FrontendInsight\Db\EventMapper;
 use OCP\IAppConfig;
 use OCP\IGroupManager;
 use OCP\INavigationManager;
@@ -183,15 +184,18 @@ class Application extends App implements IBootstrap {
 					}
 				}
 				if ($visible) {
-					$navigation->add(function () use ($urlGenerator) {
-						return [
-							'id' => self::APP_ID,
-							'order' => 50,
-							'href' => $urlGenerator->linkToRoute('frontend_insight.EventBrowser.index'),
-							'icon' => $urlGenerator->imagePath(self::APP_ID, 'app-white.svg'),
-							'name' => 'Frontend Insight',
-						];
-					});
+					$eventMapper = Server::get(EventMapper::class);
+					if ($eventMapper->countEvents(null, null) > 0) {
+						$navigation->add(function () use ($urlGenerator) {
+							return [
+								'id' => self::APP_ID,
+								'order' => 50,
+								'href' => $urlGenerator->linkToRoute('frontend_insight.EventBrowser.index'),
+								'icon' => $urlGenerator->imagePath(self::APP_ID, 'app-white.svg'),
+								'name' => 'Frontend Insight',
+							];
+						});
+					}
 				}
 			}
 		} catch (\Throwable $e) {

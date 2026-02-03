@@ -19,6 +19,7 @@ use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\IEventDispatcher;
 use OCA\FrontendInsight\Db\EventMapper;
 use OCP\IAppConfig;
+use OCP\IConfig;
 use OCP\IGroupManager;
 use OCP\INavigationManager;
 use OCP\IURLGenerator;
@@ -123,7 +124,7 @@ class Application extends App implements IBootstrap {
 			$user = $userSession->getUser();
 			$tzId = 'UTC';
 			if ($user !== null) {
-				$cfg = \OC::$server->getConfig();
+				$cfg = Server::get(IConfig::class);
 				$tzId = (string)$cfg->getUserValue($user->getUID(), 'core', 'timezone', 'UTC');
 			}
 			$tz = new \DateTimeZone($tzId ?: 'UTC');

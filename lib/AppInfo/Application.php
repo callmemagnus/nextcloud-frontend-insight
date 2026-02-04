@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace OCA\FrontendInsight\AppInfo;
 
+use OCA\FrontendInsight\Db\EventMapper;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -17,7 +18,6 @@ use OCP\AppFramework\Http\ContentSecurityPolicy;
 use OCP\AppFramework\Http\Events\BeforeTemplateRenderedEvent;
 use OCP\AppFramework\Services\IInitialState;
 use OCP\EventDispatcher\IEventDispatcher;
-use OCA\FrontendInsight\Db\EventMapper;
 use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IGroupManager;

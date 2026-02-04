@@ -32,6 +32,12 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           coverage: none
 
+      - name: Install dependencies
+        run: composer i
+
+      - name: cs-lint
+        run: composer run cs:check || ( echo 'Please run `composer run cs:fix` to format your code' && exit 1 )
+
       - name: Lint
         run: composer run lint
 

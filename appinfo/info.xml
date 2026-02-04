@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <info>
-	<id>frontend_insight</id>
-	<name>Frontend Insight</name>
-	<summary>Know what happens in your client's browser</summary>
-	<description><![CDATA[🔍 **Capture and analyze JavaScript errors from your users' browsers in real-time!**
+  <id>frontend_insight</id>
+  <name>Frontend Insight</name>
+  <summary>Know what happens in your client's browser</summary>
+  <description><![CDATA[🔍 **Capture and analyze JavaScript errors from your users' browsers in real-time!**
 
 FrontendInsight gives you **visibility into frontend issues that would otherwise go unnoticed**.
 
@@ -16,28 +16,24 @@ FrontendInsight gives you **visibility into frontend issues that would otherwise
 • 🚀 Modern UI built with Svelte 5
 
 **Identify and fix frontend bugs before they impact your users' experience!**]]></description>
-
-	<version>1.0.0</version>
-	<licence>agpl</licence>
-	<author mail="magnus@magooweb.com" homepage="http://magnus.anderssen.ch">Magnus Anderssen</author>
-	<namespace>FrontendInsight</namespace>
-	<category>tools</category>
-
-	<website>https://github.com/callmemagnus/nextcloud-frontend-insight/</website>
-	<bugs>https://github.com/callmemagnus/nextcloud-frontend-insight/issues</bugs>
-	<repository type="git">https://github.com/callmemagnus/nextcloud-frontend-insight.git</repository>
-	<screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/events.png</screenshot>
-	<screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/admin.png</screenshot>
-	<dependencies>
-		<nextcloud min-version="30" max-version="32" />
-	</dependencies>
-
-	<background-jobs>
-		<job>OCA\FrontendInsight\BackgroundJob\PurgeOldEvents</job>
-	</background-jobs>
-
-	<settings>
-		<admin>OCA\FrontendInsight\Settings\FrontendInsightAdminSettings</admin>
-		<admin-section>OCA\FrontendInsight\Sections\FrontendInsightAdminSection</admin-section>
-	</settings>
+  <version>1.1.0</version>
+  <licence>agpl</licence>
+  <author mail="magnus@magooweb.com" homepage="http://magnus.anderssen.ch">Magnus Anderssen</author>
+  <namespace>FrontendInsight</namespace>
+  <category>tools</category>
+  <website>https://github.com/callmemagnus/nextcloud-frontend-insight/</website>
+  <bugs>https://github.com/callmemagnus/nextcloud-frontend-insight/issues</bugs>
+  <repository type="git">https://github.com/callmemagnus/nextcloud-frontend-insight.git</repository>
+  <screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/events.png</screenshot>
+  <screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/admin.png</screenshot>
+  <dependencies>
+    <nextcloud min-version="30" max-version="32"/>
+  </dependencies>
+  <background-jobs>
+    <job>OCA\FrontendInsight\BackgroundJob\PurgeOldEvents</job>
+  </background-jobs>
+  <settings>
+    <admin>OCA\FrontendInsight\Settings\FrontendInsightAdminSettings</admin>
+    <admin-section>OCA\FrontendInsight\Sections\FrontendInsightAdminSection</admin-section>
+  </settings>
 </info>

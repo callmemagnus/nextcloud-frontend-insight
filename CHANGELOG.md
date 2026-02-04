@@ -1,5 +1,12 @@
-<!--
-SPDX-FileCopyrightText: 2025 Magnus Anderssen <magnus@magooweb.com>
+# Changelog
+
+## [v1.1.0](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.0.0...v1.1.0)
+
+- fix workflows
+- remove OC usage
+- remove menu entry if not events are available
+- update workflow scripts [skip ci]
+
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.1.1](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.0...v1.1.1)
+
+- Bump devalue in the npm_and_yarn group across 1 directory
+
 ## [v1.1.0](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.0.0...v1.1.0)
 
 - fix workflows

@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.1.3](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.2...v1.1.3)
+
+- add support for nextcloud 33 and fix security issues
+
 ## [v1.1.2](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.1...v1.1.2)
 
 - update lock file

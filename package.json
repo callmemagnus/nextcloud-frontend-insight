@@ -18,16 +18,16 @@
   },
   "devDependencies": {
     "@svar-ui/svelte-core": "2.4.0",
-    "@svar-ui/svelte-grid": "2.4.0",
-    "esbuild": "0.27.2",
-    "glob": "13.0.0",
+    "@svar-ui/svelte-grid": "2.5.0",
+    "esbuild": "0.27.3",
+    "glob": "13.0.6",
     "husky": "9.1.7",
     "npm-run-all": "4.1.5",
     "postcss": "8.5.6",
-    "svelte": "5.45.10",
-    "svelte-check": "4.3.5",
+    "svelte": "5.53.3",
+    "svelte-check": "4.4.3",
     "typescript": "5.9.3",
-    "vite": "7.2.7",
+    "vite": "7.3.1",
     "vite-plugin-css-injected-by-js": "3.5.2",
     "vite-plugin-html": "3.2.2"
   },
@@ -37,7 +37,7 @@
     "@nextcloud/l10n": "3.4.1",
     "@nextcloud/router": "3.1.0",
     "@nextcloud/typings": "1.10.0",
-    "@sveltejs/vite-plugin-svelte": "6.2.1"
+    "@sveltejs/vite-plugin-svelte": "6.2.4"
   },
-  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b"
+  "packageManager": "pnpm@10.30.2"
 }

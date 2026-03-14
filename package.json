@@ -14,11 +14,14 @@
     "build:event-browser": "vite build",
     "build:client": "esbuild src/client/index.ts --bundle --outfile=js/client.js",
     "extract-translations": "node bin/extract_translations.cjs",
+    "test": "./bin/e2e-local.sh --use-existing",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "@svar-ui/svelte-core": "2.4.0",
     "@svar-ui/svelte-grid": "2.5.0",
+    "@types/node": "^25.5.0",
     "esbuild": "0.27.3",
     "glob": "13.0.6",
     "husky": "9.1.7",
@@ -38,6 +41,5 @@
     "@nextcloud/router": "3.1.0",
     "@nextcloud/typings": "1.10.0",
     "@sveltejs/vite-plugin-svelte": "6.2.4"
-  },
-  "packageManager": "pnpm@10.30.3"
+  }
 }

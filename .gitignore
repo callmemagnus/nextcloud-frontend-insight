@@ -7,3 +7,5 @@ js/*.js
 css/*.css
 node_modules
 .claude
+.playwright
+/test-results

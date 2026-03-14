@@ -138,6 +138,41 @@ npm run build:client        # Client-side error reporter
 npm run check
 ```
 
+### E2E Tests
+
+End-to-end tests use [Playwright](https://playwright.dev/) and run inside Docker against a real Nextcloud instance.
+
+**Run against an already-running Nextcloud container:**
+
+```bash
+npm test
+# or explicitly:
+./bin/e2e-local.sh --use-existing
+```
+
+**Start a fresh Nextcloud container, run tests, then clean up:**
+
+```bash
+./bin/e2e-local.sh
+```
+
+**Options:**
+
+| Flag | Description |
+|------|-------------|
+| `--use-existing` | Skip container setup; use whatever is already running. Implies `--no-cleanup`. |
+| `--no-cleanup` | Don't stop the container before or after the run (useful for iterating). |
+
+The script detects the Nextcloud `max-version` from `appinfo/info.xml` and runs tests against that version on port `80{version}` (e.g. port `8033` for NC 33). Set `TARGET_NC_VERSION` to override.
+
+Test files live in `tests/e2e/`:
+
+| File | What it covers |
+|------|---------------|
+| `auth.setup.ts` | Authenticates as admin and saves browser state |
+| `event-browser.tests.ts` | Navigation, event table, reporting, row expansion, purge |
+| `admin-settings.tests.ts` | Settings page fields, toggling checkboxes, saving |
+
 ### Project Structure
 
 ```

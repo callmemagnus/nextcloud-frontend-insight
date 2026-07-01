@@ -17,7 +17,7 @@ command -v entr >/dev/null 2>&1 || missing_lib entr
 command -v notify-send >/dev/null 2>&1 || missing_lib notify-send
 
   find src | entr -s "\
-    npm run build -- -m dev \
+    npm run build \
       && \
       notify-send -t $SUCCESS_MS \"$SUCCESS_MSG\" \
       || \

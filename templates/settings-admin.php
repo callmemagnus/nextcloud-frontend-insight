@@ -100,7 +100,7 @@ $saveUrl = $urlGenerator->linkToRoute(Application::APP_ID . '.Settings.save');
 
 <form action="<?php p($saveUrl); ?>" method="post" class="section">
     <input type="hidden" name="requesttoken"
-           value="<?php p(OC::$server->getCsrfTokenManager()->getToken()->getEncryptedValue()); ?>">
+           value="<?php p($requesttoken); ?>">
     <h2><?php p($l->t('Front-end Insight settings')); ?></h2>
     <div class="settings-help"
          style="margin: 8px 0;"><?php p($l->t('Configure which client-side events this app should collect.')); ?></div>
@@ -181,7 +181,7 @@ $saveUrl = $urlGenerator->linkToRoute(Application::APP_ID . '.Settings.save');
     </div>
 </form>
 
-<script nonce="<?php p(OC::$server->getContentSecurityPolicyNonceManager()->getNonce()); ?>">
+<script nonce="<?php p(\OCP\Server::get(\OC\Security\CSP\ContentSecurityPolicyNonceManager::class)->getNonce()); ?>">
     (function () {
         function fadeAndRemove(el) {
             setTimeout(function () {

@@ -53,13 +53,8 @@ class ScriptsController extends Controller {
 		$this->reportUrl = $urlGenerator->linkToRouteAbsolute(Application::APP_ID . '.Scripts.reportError');
 	}
 
-	/**
-	 * @NoAdminRequired
-	 * @NoCSRFRequired
-	 * @PublicPage
-	 *
-	 * @return DataDownloadResponse
-	 */
+	#[PublicPage]
+	#[NoCSRFRequired]
 	#[FrontpageRoute(verb: 'GET', url: '/client.js')]
 	public function script(): DataDownloadResponse {
 		// $enabled = $this->appConfig->getA

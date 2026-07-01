@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.2.0](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.6...v1.2.0)
+
+- update dependencies
+- add support for Nextcloud 34
+
 ## [v1.1.6](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.5...v1.1.6)
 
 - update dependencies

@@ -8,5 +8,5 @@ script(\OCA\FrontendInsight\AppInfo\Application::APP_ID, 'event-browser.iife');
 
 ?>
 <main id="app-content" style="padding: 1em;">
-    <div id="mwb-fei" />
+    <div id="mwb-fei"></div>
 </main>

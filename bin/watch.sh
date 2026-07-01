@@ -13,14 +13,14 @@ missing_lib() {
 	exit 1
 }
 
-whereis entr || missing_lib entr
-whereis notify-send || missing_lib notify-send
+command -v entr >/dev/null 2>&1 || missing_lib entr
+command -v notify-send >/dev/null 2>&1 || missing_lib notify-send
 
-find src | entr -s "\
-  npm run build \
-    && \
-    notify-send -t $SUCCESS_MS \"$SUCCESS_MSG\" \
-    || \
-    notify-send -t $FAILURE_MS \"$FAILURE_MSG\" \
+  find src | entr -s "\
+    npm run build -- -m dev \
+      && \
+      notify-send -t $SUCCESS_MS \"$SUCCESS_MSG\" \
+      || \
+      notify-send -t $FAILURE_MS \"$FAILURE_MSG\" \
 "
 

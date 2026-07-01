@@ -42,7 +42,6 @@ class Application extends App implements IBootstrap {
 	) {
 		parent::__construct(self::APP_ID, $urlParams);
 		$dispatcher = $this->getContainer()->get(IEventDispatcher::class);
-		//$initialStateService = $this->getContainer()->get(IInitialState::class);
 
 		$dispatcher->addListener(AddContentSecurityPolicyEvent::class, function (AddContentSecurityPolicyEvent $event) {
 			$appConfig = Server::get(IAppConfig::class);

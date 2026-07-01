@@ -71,11 +71,11 @@ for l in lines:
             all_labels[lastid] = '"{}'.format(text)
             lastid = None
 
-    if re.fullmatch('#: /app/specialAppInfoFakeDummyForL10nScript.php:[0-9]+', line):
+    if re.fullmatch('#: /app/specialAppInfoFakeDummyForL10nScript.php:\d+', line):
         readnext = True
         continue
 
-    if re.fullmatch('#: /app/src/fakeLabels.ts:[0-9]+', line):
+    if re.fullmatch('#: /app/src/fakeLabels.ts:\d+', line):
         readnext = True
         continue
     

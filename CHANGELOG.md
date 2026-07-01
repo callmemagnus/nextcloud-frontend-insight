@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.1.6](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.5...v1.1.6)
+
+- update dependencies
+- bring back the e2e tests [skip ci]
+
 ## [v1.1.5](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.4...v1.1.5)
 
 - security updates

@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.3.0](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.2.0...v1.3.0)
+
+- update dependencies
+- add a notification for admins
+
 ## [v1.2.0](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.1.6...v1.2.0)
 
 - update dependencies

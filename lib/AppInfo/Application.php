@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace OCA\FrontendInsight\AppInfo;
 
 use OCA\FrontendInsight\Db\EventMapper;
+use OCA\FrontendInsight\Notification\Notifier;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
@@ -78,7 +79,7 @@ class Application extends App implements IBootstrap {
 	}
 
 	public function register(IRegistrationContext $context): void {
-		// nothing to do here
+		$context->registerNotifierService(Notifier::class);
 	}
 
 	/**

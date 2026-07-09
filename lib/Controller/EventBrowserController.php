@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OCA\FrontendInsight\Controller;
 
 use OCA\FrontendInsight\AppInfo\Application;
+use OCA\FrontendInsight\Service\ErrorNotificationService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\FrontpageRoute;
@@ -15,6 +16,7 @@ use OCP\IAppConfig;
 use OCP\IGroupManager;
 use OCP\IRequest;
 use OCP\IUserSession;
+use Psr\Log\LoggerInterface;
 
 class EventBrowserController extends Controller {
 	public function __construct(
@@ -22,6 +24,8 @@ class EventBrowserController extends Controller {
 		private readonly IUserSession $userSession,
 		private readonly IGroupManager $groupManager,
 		private readonly IAppConfig $appConfig,
+		private readonly ErrorNotificationService $errorNotificationService,
+		private readonly LoggerInterface $logger,
 	) {
 		parent::__construct(Application::APP_ID, $request);
 	}
@@ -81,6 +85,16 @@ class EventBrowserController extends Controller {
 		if (!$this->isUserAllowed()) {
 			return new JSONResponse(['message' => 'Forbidden'], Http::STATUS_FORBIDDEN);
 		}
+
+		$user = $this->userSession->getUser();
+		if ($user !== null && $this->request->getParam('from') === 'notification') {
+			try {
+				$this->errorNotificationService->dismissNewErrorsNotification($user->getUID());
+			} catch (\Throwable $e) {
+				$this->logger->warning('Failed to dismiss frontend insight notification', ['exception' => $e]);
+			}
+		}
+
 		return new TemplateResponse(Application::APP_ID, 'event-browser-page');
 	}
 }

@@ -11,6 +11,7 @@ namespace OCA\FrontendInsight\Controller;
 
 use OCA\FrontendInsight\AppInfo\Application;
 use OCA\FrontendInsight\Db\EventMapper;
+use OCA\FrontendInsight\Service\ErrorNotificationService;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\Attribute\AnonRateLimit;
@@ -44,6 +45,7 @@ class ScriptsController extends Controller {
 		IRequest $request,
 		private IAppConfig $appConfig,
 		private EventMapper $eventMapper,
+		private ErrorNotificationService $errorNotificationService,
 		private LoggerInterface $logger,
 	) {
 		parent::__construct(Application::APP_ID, $request);
@@ -97,7 +99,15 @@ class ScriptsController extends Controller {
 			'stack' => $stack,
 			'file' => $file
 		]);
+		$wasEmpty = $this->eventMapper->countEvents(null, null) === 0;
 		$this->eventMapper->addEvent(timestamp: $timestamp, type: $type, url: $url, useragent: $useragent, message: $message, stack: $stack, file: $file);
+		if ($wasEmpty) {
+			try {
+				$this->errorNotificationService->notifyNewErrors();
+			} catch (\Throwable $e) {
+				$this->logger->warning('Failed to send frontend insight notification', ['exception' => $e]);
+			}
+		}
 		return new Response(status: Http::STATUS_NO_CONTENT);
 	}
 }

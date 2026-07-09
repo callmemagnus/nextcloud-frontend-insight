@@ -125,7 +125,7 @@ $saveUrl = $urlGenerator->linkToRoute(Application::APP_ID . '.Settings.save');
                style="margin-right: 8px; font-weight: 600; font-size: 1.1em;"><?php p($l->t('Allowed groups')); ?></label>
     </div>
     <?php $disabled = empty($available_groups) || count($available_groups) <= 1; ?>
-    <div class="settings-help"><?php p($l->t('The following groups of usersn will be able to see the reports')); ?></div>
+    <div class="settings-help"><?php p($l->t('The following groups of users will be able to see the reports')); ?></div>
     <div style="margin: 8px 0;" class="<?php echo $disabled ? 'fei-groups-disabled' : ''; ?>">
         <div class="fei-groups-list" role="group" aria-labelledby="fei-groups-label">
             <?php foreach (($available_groups ?? []) as $g):

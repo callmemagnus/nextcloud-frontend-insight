@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.3.1](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.3.0...v1.3.1)
+
+- change timestamp db format
+
 ## [v1.3.0](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.2.0...v1.3.0)
 
 - update dependencies

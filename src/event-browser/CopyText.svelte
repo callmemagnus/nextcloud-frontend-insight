@@ -52,6 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         position: relative;
         display: inline-flex;
         align-items: baseline;
+        gap: 4px;
         max-width: 100%;
     }
     .mwb-copy-text {
@@ -65,21 +66,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     .mwb-icon-copy {
         opacity: 0;
         transition: opacity 0.12s ease-in-out;
+        flex-shrink: 0;
         padding: 5px;
-        margin: 0 0 0 -15px !important;
+        margin: 0;
         position: relative;
         height: 18px;
-
-        /* position: absolute;
-        right: 4px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 18px;
-        height: 18px;
-        border: 0;
-        background: transparent;
-        cursor: pointer;
-        padding: 0; */
     }
     .mwb-copy-wrap:hover .mwb-icon-copy {
         opacity: 1;

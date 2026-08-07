@@ -64,9 +64,9 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 
     .mwb-danger {
         padding: 8px 16px;
-        background-color: var(--color-error);
-        color: white;
-        border: 1px solid var(--color-error);
+        background-color: var(--color-error-text);
+        color: var(--color-main-background, white);
+        border: 1px solid var(--color-error-text);
         border-radius: 4px;
         font-weight: 600;
         cursor: pointer;
@@ -74,8 +74,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     }
 
     .mwb-danger:hover:not(:disabled) {
-        background-color: var(--color-error-hover, #c9302c);
-        border-color: var(--color-error-hover, #c9302c);
+        filter: brightness(1.15);
     }
 
     .mwb-danger:disabled {
@@ -83,5 +82,6 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         cursor: not-allowed;
         background-color: var(--color-background-dark, #888);
         border-color: var(--color-background-dark, #888);
+        color: var(--color-main-text, #333);
     }
 </style>

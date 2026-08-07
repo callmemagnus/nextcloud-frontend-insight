@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.3.2](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.3.1...v1.3.2)
+
+- purge button style
+- make copy icon appear on the right of the text
+- update dependencies
+
 ## [v1.3.1](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.3.0...v1.3.1)
 
 - change timestamp db format

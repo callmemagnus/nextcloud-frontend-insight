@@ -11,7 +11,7 @@ if test "$1" = ""; then
 fi
 
 start() {
-    for i in 34 30; do
+    for i in 35 34; do
         nc-start.sh "$i" || echo "WARNING: could not start NC${i}, skipping"
         nc-enable-app.sh "$i" || echo "WARNING: could not enable app on NC${i}"
     done

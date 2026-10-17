@@ -24,10 +24,10 @@ FrontendInsight gives you **visibility into frontend issues that would otherwise
   <website>https://github.com/callmemagnus/nextcloud-frontend-insight/</website>
   <bugs>https://github.com/callmemagnus/nextcloud-frontend-insight/issues</bugs>
   <repository type="git">https://github.com/callmemagnus/nextcloud-frontend-insight.git</repository>
-  <screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/events.png</screenshot>
+  <screenshot>https://raw.githsubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/events.png</screenshot>
   <screenshot>https://raw.githubusercontent.com/callmemagnus/nextcloud-frontend-insight/main/screenshots/admin.png</screenshot>
   <dependencies>
-    <nextcloud min-version="30" max-version="34"/>
+    <nextcloud min-version="34" max-version="35"/>
   </dependencies>
   <background-jobs>
     <job>OCA\FrontendInsight\BackgroundJob\PurgeOldEvents</job>

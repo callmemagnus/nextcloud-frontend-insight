@@ -6,13 +6,13 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { translate } from "@nextcloud/l10n";
     import {APP_ID} from "../constants.js";
 
-    const { cursor, limit, total, onPrev, onNext } = $props<{
+    const { cursor, limit, total, onPrev, onNext }: {
         cursor: number;
         limit: number;
         total: number;
         onPrev: () => void;
         onNext: () => void;
-    }>();
+    } = $props();
 
     const page = $derived(Math.ceil(cursor / limit));
     const totalPages = $derived(

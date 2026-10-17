@@ -10,11 +10,11 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         text,
         title,
         monospace = false,
-    } = $props<{
+    }: {
         text: string;
         title?: string;
         monospace?: boolean;
-    }>();
+    } = $props();
 
     let copied = $state(false);
     let hideTimer: any = null;

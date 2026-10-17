@@ -29,9 +29,9 @@ test("client script reports unhandled promise rejections with their stack", asyn
   await rejectUnhandled(page, message);
 
   await expect.poll(async () => (await findEvents(page, token, message)).map((e) => e.type)).toEqual(["unhandledrejection"]);
-  const [event] = await findEvents(page, token, message);
-  expect(event.message).toBe(message);
-  expect(event.stack).toContain(message);
+  expect(await findEvents(page, token, message)).toEqual([
+    expect.objectContaining({ message, stack: expect.stringContaining(message) }),
+  ]);
 });
 
 test("client script stops reporting errors when collection is disabled", async ({ page }) => {

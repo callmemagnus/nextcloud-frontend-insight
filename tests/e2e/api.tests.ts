@@ -46,14 +46,14 @@ test("stats API counts events by type", async ({ page, baseURL }) => {
 
 test("anonymous clients can report events", async ({ playwright, baseURL }) => {
   // The client script also runs on public pages (e.g. login), so this endpoint is #[PublicPage].
-  const anon = await playwright.request.newContext({ baseURL, storageState: ANONYMOUS });
+  const anon = await playwright.request.newContext({ baseURL: baseURL!, storageState: ANONYMOUS });
   const response = await reportEvent(anon, baseURL!, { message: "anonymous report " + Date.now() });
   expect(response.status()).toBe(204);
   await anon.dispose();
 });
 
 test("anonymous users cannot read events, stats or settings", async ({ playwright, baseURL }) => {
-  const anon = await playwright.request.newContext({ baseURL, storageState: ANONYMOUS });
+  const anon = await playwright.request.newContext({ baseURL: baseURL!, storageState: ANONYMOUS });
   for (const path of ["/api/1.0/events", "/api/1.0/stats", "/settings"]) {
     const response = await anon.get(`${APP_URL}${path}`, { maxRedirects: 0 });
     expect(response.ok(), `${path} returned ${response.status()}`).toBe(false);
@@ -65,7 +65,7 @@ test("anonymous users cannot change settings or purge events", async ({ page, pl
   const token = await requestToken(page);
   const before = await getJson(page, token, "/settings");
 
-  const anon = await playwright.request.newContext({ baseURL, storageState: ANONYMOUS });
+  const anon = await playwright.request.newContext({ baseURL: baseURL!, storageState: ANONYMOUS });
   const save = await anon.post(`${APP_URL}/settings`, {
     form: { retention_hours: before.retention_hours + 1 },
     headers: { Accept: "application/json" },

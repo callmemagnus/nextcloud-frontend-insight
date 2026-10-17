@@ -34,7 +34,7 @@ test.describe.serial("non-admin access", () => {
     await anon.dispose();
 
     // A second group disables the "only admin group exists" fallback, so pin the allowed groups explicitly
-    const admin = await browser.newPage({ baseURL, storageState: testInfo.project.use.storageState });
+    const admin = await browser.newPage({ baseURL, storageState: testInfo.project.use.storageState! });
     original = await getJson(admin, await requestToken(admin, DASHBOARD), "/settings");
     await setAllowedGroups(admin, ["admin"]);
     await admin.close();
@@ -42,7 +42,7 @@ test.describe.serial("non-admin access", () => {
 
   test.afterAll(async ({ playwright, browser }, testInfo) => {
     const baseURL = testInfo.project.use.baseURL!;
-    const admin = await browser.newPage({ baseURL, storageState: testInfo.project.use.storageState });
+    const admin = await browser.newPage({ baseURL, storageState: testInfo.project.use.storageState! });
     if (original) await saveSettings(admin, await requestToken(admin, DASHBOARD), original);
     await admin.close();
 

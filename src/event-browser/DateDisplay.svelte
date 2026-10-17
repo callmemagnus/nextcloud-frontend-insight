@@ -9,7 +9,7 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     import { translatePlural, translate } from '@nextcloud/l10n';
     import {APP_ID} from "../constants.js";
 
-    const { timestamp, forceFormat } = $props<{ timestamp: number; forceFormat?: import('./stores/dateDisplay').DateFormat }>();
+    const { timestamp, forceFormat }: { timestamp: number; forceFormat?: import('./stores/dateDisplay').DateFormat } = $props();
 
     // Runes mode: local reactive state and subscription
     let settings = $state<DateDisplaySettings>({ timezone: 'utc', format: 'iso' });

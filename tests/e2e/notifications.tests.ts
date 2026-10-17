@@ -18,7 +18,7 @@ test("first event after an empty log notifies admins, opening it from the notifi
   const purge = await page.request.delete(`${APP_URL}/api/1.0/events/purge`, { headers: { requesttoken: token } });
   expect(purge.ok()).toBe(true);
 
-  const anon = await playwright.request.newContext({ baseURL, storageState: ANONYMOUS });
+  const anon = await playwright.request.newContext({ baseURL: baseURL!, storageState: ANONYMOUS });
   expect((await reportEvent(anon, baseURL!, { message: "notification trigger" })).status()).toBe(204);
   await anon.dispose();
   await expect.poll(() => pendingNotifications(ocs)).toBeGreaterThan(0);

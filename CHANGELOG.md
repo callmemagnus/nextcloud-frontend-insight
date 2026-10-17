@@ -1,5 +1,9 @@
 # Changelog
 
+## [v1.3.4](https://github.com/callmemagnus/nextcloud-frontend-insight/compare/v1.3.3...v1.3.4)
+
+- update dependencies
+
 ## [v1.3.3](https://github.com/callmemagnus/nextcloud-frontend-insight/compare/v1.3.2...v1.3.3)
 
 - update dependencies

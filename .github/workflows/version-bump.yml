@@ -10,14 +10,14 @@ on:
   workflow_dispatch:
     inputs:
       bump_type:
-        description: 'Version bump type'
+        description: "Version bump type"
         required: true
         type: choice
         options:
           - major
           - minor
           - patch
-        default: 'patch'
+        default: "patch"
 
 jobs:
   bump-version:
@@ -82,7 +82,7 @@ jobs:
         if: steps.bot_check.outputs.skip != 'true'
         id: last_tag
         run: |
-          LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          LAST_TAG=$(git describe --tags --abbrev=0 --exclude='v*-pre*' --exclude='v*-dev.*' 2>/dev/null || echo "")
           if [ -z "$LAST_TAG" ]; then
             echo "No previous tags found"
             echo "tag=" >> $GITHUB_OUTPUT
@@ -283,6 +283,9 @@ jobs:
             echo "Running: git log ${LAST_TAG}..HEAD --pretty=format:\"%s\" --no-merges --author='^(?!github-actions\[bot\]).*' --perl-regexp"
             COMMITS=$(git log ${LAST_TAG}..HEAD --pretty=format:"%s" --no-merges --author='^(?!github-actions\[bot\]).*' --perl-regexp)
 
+            # Exclude commits marked [skip ci] from the changelog
+            COMMITS=$(echo "$COMMITS" | grep -v '\[skip ci\]' || true)
+
             echo "Raw commits found:"
             echo "---"
             echo "$COMMITS"
@@ -370,10 +373,15 @@ jobs:
 
       - name: Create git tag
         if: steps.bot_check.outputs.skip != 'true' && steps.bump_type.outputs.bump != 'none'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git tag "v${{ steps.new_version.outputs.version }}"
           git push origin "v${{ steps.new_version.outputs.version }}"
           echo "Created and pushed tag v${{ steps.new_version.outputs.version }}"
+
+          gh workflow run release-prod.yml --ref "v${{ steps.new_version.outputs.version }}"
+          echo "Triggered release-prod workflow for v${{ steps.new_version.outputs.version }}"
 
       - name: Skip message (bot commit)
         if: steps.bot_check.outputs.skip == 'true'
@@ -389,11 +397,3 @@ jobs:
         if: steps.bot_check.outputs.skip != 'true' && steps.bump_type.outputs.bump == 'none' && (steps.nextcloud_bot_check.outputs.is_nextcloud_bot != 'true' || steps.threshold_check.outputs.meets_threshold != 'false')
         run: |
           echo "No version bump needed - no relevant commits found since last tag"
-
-      # - name: Trigger release
-      #   if: startsWith( github.ref, 'refs/tags' )
-      #   run: |
-      #     echo Trigger release on a tag
-      #     gh workflow run --ref ${{ github.ref_name }} "Build and publish app release"
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

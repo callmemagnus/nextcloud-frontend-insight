@@ -10,3 +10,4 @@ node_modules
 .playwright
 /test-results
 .tmp/
+.direnv

@@ -7,7 +7,7 @@ set -e
 # Usage: bin/run-playwright.sh [nc_major_version|--exclude <nc_major_version>]
 # Runs Playwright tests in Docker against already-running Nextcloud containers.
 
-. nc-env.sh
+. "$(dirname "$0")/lib/env.sh"
 
 PLAYWRIGHT_VERSION=$(jq -r '.devDependencies["@playwright/test"]' "$ROOT/package.json")
 if test -z "$PLAYWRIGHT_VERSION" || test "$PLAYWRIGHT_VERSION" = "null"; then

@@ -1,5 +1,10 @@
 # Changelog
 
+## [v1.3.3](https://github.com/callmemagnus/nextcloud-frontend-insight/compare/v1.3.2...v1.3.3)
+
+- update dependencies
+- update support Nextcloud from 34 to 35
+
 ## [v1.3.2](https://github.com/callmemagnus/nextcloud-searchpage/compare/v1.3.1...v1.3.2)
 
 - purge button style

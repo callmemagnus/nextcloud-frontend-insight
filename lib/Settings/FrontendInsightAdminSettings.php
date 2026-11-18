@@ -44,7 +44,7 @@ class FrontendInsightAdminSettings implements ISettings {
 				'selected_groups' => $this->getSelectedGroups(),
 				'current_user_groups' => $this->getCurrentUserGroups(),
 			],
-			'blank'
+			TemplateResponse::RENDER_AS_BLANK
 		);
 	}
 

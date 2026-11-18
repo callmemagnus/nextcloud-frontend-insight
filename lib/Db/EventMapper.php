@@ -20,7 +20,7 @@ class EventMapper extends QBMapper {
 	/**
 	 * @param int $page
 	 * @param int $limit
-	 * @return Event[]
+	 * @return list<array<string, mixed>>
 	 * @throws Exception
 	 */
 	public function getEvents(int $page, int $limit, ?string $url, ?string $q, string $sort, string $dir, ?int $startAt = null): array {
@@ -217,34 +217,5 @@ class EventMapper extends QBMapper {
 			$stats[$norm] = $cnt;
 		}
 		return $stats;
-	}
-
-
-
-	public function getInterestingFacts(): array {
-		$qb = $this->db->getQueryBuilder();
-		$qb->selectDistinct('url')
-			->from($this->getTableName())
-			->setMaxResults(10);
-		$urls = $qb->executeQuery()->fetchAll();
-
-		$unique_url = [];
-		foreach ($urls as $url) {
-			$p = parse_url($url);
-			$u = $p['scheme'] . '://' . $p['host'];
-			if (isset($p['port']) && !in_array($p['port'], [80, 443], true)) {
-				$u = $u . ':' . $p['port'];
-			}
-			$u = $u . '/' . $p['path'];
-
-			if (!$unique_url[$u]) {
-				$unique_url[$u] = 0;
-			}
-			$unique_url[$u]++;
-		}
-
-		return [
-			'uniqueUrlCounts' => $unique_url
-		];
 	}
 }
